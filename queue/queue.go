@@ -16,13 +16,13 @@ func InitQueue() Queue {
 	}
 }
 
-func (qe *Queue) Enqueue(ev event.Event) {
+func (qe *Queue) Enqueue(ev ...event.Event) {
 	if qe.events == nil {
-		qe.events = []event.Event{ev}
+		qe.events = ev
 		return
 	}
 
-	qe.events = append(qe.events, ev)
+	qe.events = append(qe.events, ev...)
 }
 
 func (qe *Queue) Dequeue() event.Event {

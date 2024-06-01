@@ -25,9 +25,7 @@ func main() {
 
 	q := queue.InitQueue()
 
-	q.Enqueue(event)
-
-	q.Enqueue(event2)
+	q.Enqueue(event, event2)
 
 	for {
 		ev := q.Dequeue()
