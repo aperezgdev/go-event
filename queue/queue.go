@@ -4,19 +4,24 @@ import (
 	"github.com/aperezgdev/go-event/event"
 )
 
-type Queue struct {
+type Queue interface {
+	Enqueue(...event.Event)
+	Dequeue() event.Event
+}
+
+type MemoryQueue struct {
 	events []event.Event
 	Size   uint
 }
 
-func InitQueue() Queue {
-	return Queue{
+func InitMemoryQueue() MemoryQueue {
+	return MemoryQueue{
 		nil,
 		0,
 	}
 }
 
-func (qe *Queue) Enqueue(ev ...event.Event) {
+func (qe *MemoryQueue) Enqueue(ev ...event.Event) {
 	if qe.events == nil {
 		qe.events = ev
 		return
@@ -25,7 +30,7 @@ func (qe *Queue) Enqueue(ev ...event.Event) {
 	qe.events = append(qe.events, ev...)
 }
 
-func (qe *Queue) Dequeue() event.Event {
+func (qe *MemoryQueue) Dequeue() event.Event {
 	if len(qe.events) > 0 {
 		firstEvent := qe.events[0]
 		qe.events = qe.events[1:]

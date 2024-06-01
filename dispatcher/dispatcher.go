@@ -9,8 +9,8 @@ import (
 )
 
 type Dispatcher interface {
-	Dispatch(e event.Event)
-	On(eventName string, toAddConsumer consumer.Consumer)
+	Dispatch(e event.Event) error
+	On(eventName string, toAddConsumer ...consumer.Consumer)
 	Remove(eventName string)
 }
 
