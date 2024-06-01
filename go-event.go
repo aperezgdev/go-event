@@ -17,12 +17,11 @@ func registerUser(email string) examples.UserCreated {
 func main() {
 	var event = registerUser("example@example.com")
 
-	var event2 = registerUser("aperezg@gmail.com")
+	var event2 = registerUser("example2@example2.com")
 
 	dispatch := dispatcher.InitDefaultEventDispatcher()
 
-	dispatch.On(examples.USER_CREATED, examples.UserCreatedConsumer)
-	dispatch.On(examples.USER_CREATED, examples.ErrorConsumer)
+	dispatch.On(examples.USER_CREATED, examples.UserCreatedConsumer, examples.ErrorConsumer)
 
 	q := queue.InitQueue()
 

@@ -40,13 +40,13 @@ func (ed *DefaultEventDispatcher) Dispatch(e event.Event) error {
 	return nil
 }
 
-func (ed *DefaultEventDispatcher) On(eventName string, toAddConsumer consumer.Consumer) {
+func (ed *DefaultEventDispatcher) On(eventName string, toAddConsumer ...consumer.Consumer) {
 	if ed.relations[eventName] == nil {
-		ed.relations[eventName] = []consumer.Consumer{toAddConsumer}
+		ed.relations[eventName] = toAddConsumer
 		return
 	}
 
-	ed.relations[eventName] = append(ed.relations[eventName], toAddConsumer)
+	ed.relations[eventName] = append(ed.relations[eventName], toAddConsumer...)
 }
 
 func (ed *DefaultEventDispatcher) Remove(eventName string) {
